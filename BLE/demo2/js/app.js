@@ -101,7 +101,7 @@ function connectBLE() {
       return Promise.all([
         service.getCharacteristic(RX_CHARACTERISTIC_UUID),
         service.getCharacteristic(TX_CHARACTERISTIC_UUID)
-      ]);s
+      ]);
     })
     .then(characteristic => {
       humidityCharacteristic = characteristic[0];
