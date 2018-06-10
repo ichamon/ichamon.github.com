@@ -81,21 +81,21 @@ function connectBLE() {
     ]
   })
     .then(device => {
-      log.debug("デバイスを選択しました。接続します。");
-      log.debug("デバイス名 : " + device.name);
-      log.debug("ID : " + device.id);
+      console.log("デバイスを選択しました。接続します。");
+      console.log("デバイス名 : " + device.name);
+      console.log("ID : " + device.id);
 
       // 選択したデバイスに接続
       return device.gatt.connect();
     })
     .then(server => {
-      log.debug("デバイスへの接続に成功しました。サービスを取得します。");
+      console.log("デバイスへの接続に成功しました。サービスを取得します。");
 
       // UUIDに合致するサービス(機能)を取得
       return server.getPrimaryService(SERVICE_UUID);
     })
     .then(service => {
-      log.debug("サービスの取得に成功しました。キャラクタリスティックを取得します。");
+      console.log("サービスの取得に成功しました。キャラクタリスティックを取得します。");
 
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
       return Promise.all([
@@ -107,14 +107,14 @@ function connectBLE() {
       humidityCharacteristic = characteristic[0];
       temperatureCharacteristic = characteristic[1];
 
-      log.debug("BLE接続が完了しました。");
+      console.log("BLE接続が完了しました。");
 
       // センサーの値を読み込みます。
       loadSensorValue();
 
     })
     .catch(error => {
-      log.debug("Error : " + error);
+      console.log("Error : " + error);
 
       // loading非表示
       loading.className = "hide";
@@ -147,13 +147,13 @@ function loadSensorValue() {
         humidityText.innerHTML = toHex(humidity);
         temperatureText.innerHTML = toHex(temperature);
 
-        log.debug("RX : " + humidity + " | TX : " + temperature + "");
+        console.log("RX : " + humidity + " | TX : " + temperature + "");
 
         // 温度・湿度を表示
         showMainView();
       })
       .catch(error => {
-        log.debug("Error : " + error);
+        console.log("Error : " + error);
       });
 
   }, 1000);
