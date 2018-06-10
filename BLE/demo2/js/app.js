@@ -1,25 +1,29 @@
 /**
- * サービスのUUIDです。
+ * BLESerial3 の UUID
  * @type {string}
  */
 const SERVICE_UUID = "FEED0001-C497-4476-A7ED-727DE7648AB1";
 
 /**
- * キャラクタリスティックのUUIDです。
+ * RX(Notify) UUID
  * @type {string}
  */
-const HUMIDITY_CHARACTERISTIC_UUID = "FEEDAA03-C497-4476-A7ED-727DE7648AB1";
-const TEMPERATURE_CHARACTERISTIC_UUID = "FEEDAA02-C497-4476-A7ED-727DE7648AB1";
+const RX_NOTIFY_CHARACTERISTIC_UUID = "FEEDAA03-C497-4476-A7ED-727DE7648AB1";
+/**
+ * TX(WRITE) UUID
+ * @type {string}
+ */
+const TX_WRITE_CHARACTERISTIC_UUID = "FEEDAA02-C497-4476-A7ED-727DE7648AB1";
 
 /**
- * 湿度のキャラクタリスティックです。
+ * Rxのキャラクタリスティックです。
  */
-let humidityCharacteristic;
+let RxCharacteristic;
 
 /**
- * 温度のキャラクタリスティックです。
+ * Txのキャラクタリスティックです。
  */
-let temperatureCharacteristic;
+let TxCharacteristic;
 
 /**
  * BLEに接続するボタンです。
@@ -27,19 +31,19 @@ let temperatureCharacteristic;
 let connectButton;
 
 /**
- * 湿度・温度を表示するDOMです。
+ * Rx・Txを表示するDOMです。
  */
 let mainView;
 
 /**
- * 湿度を表示するDOMです。
+ * Rxを表示するDOMです。
  */
-let humidityText;
+let RxText;
 
 /**
- * 温度を表示するDOMです。
+ * Txを表示するDOMです。
  */
-let temperatureText;
+let TxText;
 
 /**
  * ローディングボタンです。
@@ -54,8 +58,8 @@ function init() {
   connectButton.addEventListener("click", connectBLE);
 
   mainView = document.querySelector("#main-view");
-  humidityText = document.querySelector("#humidity-text");
-  temperatureText = document.querySelector("#temperature-text");
+  RxText = document.querySelector("#Rx-text");
+  TxText = document.querySelector("#Tx-text");
 
   loading = document.querySelector("#loading");
 }
@@ -64,7 +68,7 @@ function init() {
  * Web Bluetooth APIでBLEデバイスに接続します。
  */
 function connectBLE() {
-  // loading表示
+  /* loading表示 */
   loading.className = "show";
 
   navigator.bluetooth.requestDevice({
@@ -81,38 +85,38 @@ function connectBLE() {
       console.log("デバイス名 : " + device.name);
       console.log("ID : " + device.id);
 
-      // 選択したデバイスに接続
+      /* 選択したデバイスに接続 */
       return device.gatt.connect();
     })
     .then(server => {
       console.log("デバイスへの接続に成功しました。サービスを取得します。");
 
-      // UUIDに合致するサービス(機能)を取得
+      /* UUIDに合致するサービス(機能)を取得 */
       return server.getPrimaryService(SERVICE_UUID);
     })
     .then(service => {
       console.log("サービスの取得に成功しました。キャラクタリスティックを取得します。");
 
-      // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
+      /* UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得 */
       return Promise.all([
-        service.getCharacteristic(HUMIDITY_CHARACTERISTIC_UUID),
-        service.getCharacteristic(TEMPERATURE_CHARACTERISTIC_UUID)
+        service.getCharacteristic(RX_NOTIFY_CHARACTERISTIC_UUID),
+        service.getCharacteristic(TX_WRITE_CHARACTERISTIC_UUID)
       ]);
     })
     .then(characteristic => {
-      humidityCharacteristic = characteristic[0];
-      temperatureCharacteristic = characteristic[1];
+      RxCharacteristic = characteristic[0];
+      TxCharacteristic = characteristic[1];
 
       console.log("BLE接続が完了しました。");
 
-      // センサーの値を読み込みます。
+      /* センサーの値を読み込みます。*/
       loadSensorValue();
 
     })
     .catch(error => {
       console.log("Error : " + error);
 
-      // loading非表示
+      /* loading非表示 */
       loading.className = "hide";
     });
 }
@@ -121,31 +125,31 @@ function connectBLE() {
  * センサーの値を読み込みます。
  */
 function loadSensorValue() {
-  // 1秒ごとにセンサーの値を取得
+  /* 1秒ごとにセンサーの値を取得 */
   setInterval(function () {
-    let humidity;
-    let temperature;
+    let Rx;
+    let Tx;
 
-    // 湿度の値を読み込む
-    humidityCharacteristic.readValue()
+    /* Rxの値を読み込む */
+    RxCharacteristic.readValue()
       .then(value => {
-        // 湿度を取得
-        humidity = value.getUint8(0);
+        /* Rxを取得 */
+        Rx = value.getUint8(0);
 
-        // 温度の値を読み込む
-        return temperatureCharacteristic.readValue();
+        /* Txの値を読み込む */
+        return TxCharacteristic.readValue();
       })
       .then(value => {
-        // 温度を取得
-        temperature = value.getUint8(0);
+        /* Txを取得 */
+        Tx = value.getUint8(0);
 
-        // 湿度・温度の表示を更新
-        humidityText.innerHTML = humidity;
-        temperatureText.innerHTML = temperature;
+        /* Rx・Txの表示を更新 */
+        RxText.innerHTML = Rx;
+        TxText.innerHTML = Tx;
 
-        console.log("湿度 : " + humidity + "% | 温度 : " + temperature + "度");
+        console.log("Rx(Notify) : " + Rx + " | Tx : " + Tx + );
 
-        // 温度・湿度を表示
+        /* Tx・Rxを表示 */
         showMainView();
       })
       .catch(error => {
@@ -156,16 +160,16 @@ function loadSensorValue() {
 }
 
 /**
- * 温度・湿度を表示します。
+ * Tx・Rxを表示します。
  */
 function showMainView() {
-  // 接続ボタン
+  /* 接続ボタン */
   connectButton.className = "hide";
 
-  // loading非表示
+  /* loading非表示 */
   loading.className = "hide";
 
-  // 湿度・温度表示
+  /* Rx・Tx表示 */
   mainView.className = "show";
 }
 
