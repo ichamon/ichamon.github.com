@@ -60,6 +60,10 @@ function init() {
   loading = document.querySelector("#loading");
 }
 
+function toHex(v) {
+    return '0x' + (('0000' + v.toString(16).toUpperCase()).substr(-4));
+}
+
 /**
  * Web Bluetooth APIでBLEデバイスに接続します。
  */
@@ -140,10 +144,10 @@ function loadSensorValue() {
         temperature = value.getUint8(0);
 
         // 湿度・温度の表示を更新
-        humidityText.innerHTML = humidity;
-        temperatureText.innerHTML = temperature;
+        humidityText.innerHTML = toHex(humidity);
+        temperatureText.innerHTML = toHex(temperature);
 
-        console.log("RX : " + humidity + " | TX : " + temperature + ");
+        console.log("RX : " + humidity + " | TX : " + temperature + "");
 
         // 温度・湿度を表示
         showMainView();
