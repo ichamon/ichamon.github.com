@@ -61,7 +61,7 @@ function init() {
 }
 
 function toHex(v) {
-    return '0x' + (('00' + v.toString(16).toUpperCase()).substr(-4));
+    return '0x' + (('0000' + v.toString(16).toUpperCase()).substr(-4));
 }
 
 /**
