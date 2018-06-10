@@ -8,8 +8,8 @@ const SERVICE_UUID = "FEED0001-C497-4476-A7ED-727DE7648AB1";
  * キャラクタリスティックのUUIDです。
  * @type {string}
  */
-const HUMIDITY_CHARACTERISTIC_UUID = "FEEDAA03-C497-4476-A7ED-727DE7648AB1";
-const TEMPERATURE_CHARACTERISTIC_UUID = "FEEDAA02-C497-4476-A7ED-727DE7648AB1";
+const RX_CHARACTERISTIC_UUID = "FEEDAA03-C497-4476-A7ED-727DE7648AB1";
+const TX_CHARACTERISTIC_UUID = "FEEDAA02-C497-4476-A7ED-727DE7648AB1";
 
 /**
  * 湿度のキャラクタリスティックです。
@@ -95,9 +95,9 @@ function connectBLE() {
 
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
       return Promise.all([
-        service.getCharacteristic(HUMIDITY_CHARACTERISTIC_UUID),
-        service.getCharacteristic(TEMPERATURE_CHARACTERISTIC_UUID)
-      ]);
+        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
+        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
+      ]);s
     })
     .then(characteristic => {
       humidityCharacteristic = characteristic[0];
@@ -143,7 +143,7 @@ function loadSensorValue() {
         humidityText.innerHTML = humidity;
         temperatureText.innerHTML = temperature;
 
-        console.log("湿度 : " + humidity + "% | 温度 : " + temperature + "度");
+        console.log("RX : " + humidity + " | TX : " + temperature + ");
 
         // 温度・湿度を表示
         showMainView();
