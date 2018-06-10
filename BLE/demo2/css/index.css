@@ -48,12 +48,12 @@ body > div {
 	line-height: 1;
 }
 
-#main-view .humidity {
+#main-view .Rx {
 	border-bottom: solid 1px #ddd;
 	color: #2c82c9
 }
 
-#main-view .temperature {
+#main-view .Tx {
 	color: #e26a6a
 }
 
