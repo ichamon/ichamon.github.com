@@ -8,8 +8,8 @@ const SERVICE_UUID = "feed0001-c497-4476-a7ed-727de7648ab1";
  * キャラクタリスティックのUUIDです。
  * @type {string}
  */
-const RX_CHARACTERISTIC_UUID = "feedaa03-c497-4476-a7ed-727de7648ab1";
-const TX_CHARACTERISTIC_UUID = "feedaa02-c497-4476-a7ed-727de7648ab1";
+const RX_CHARACTERISTIC_UUID = "FEEDAA03-C497-4476-A7ED-727DE7648AB1";
+const TX_CHARACTERISTIC_UUID = "FEEDAA02-C497-4476-A7ED-727DE7648AB1";
 
 /**
  * 湿度のキャラクタリスティックです。
