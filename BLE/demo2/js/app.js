@@ -73,11 +73,8 @@ function connectBLE() {
 
   navigator.bluetooth.requestDevice({
     filters: [
-      {
-        services: [
-          SERVICE_UUID
-        ]
-      }
+      { services: [SERVICE_UUID] },
+      { namePrefix: "BLESerial" }
     ]
   })
     .then(device => {
