@@ -141,8 +141,8 @@ function loadSensorValue() {
         temperature = value.getUint8(0);
 
         // 湿度・温度の表示を更新
-        humidityText.innerHTML = toHex(humidity);
-        temperatureText.innerHTML = toHex(temperature);
+        humidityText.innerHTML = humidity;
+        temperatureText.innerHTML = temperature;
 
         console.log("RX : " + humidity + " | TX : " + temperature + "");
 
