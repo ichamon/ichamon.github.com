@@ -140,8 +140,8 @@ function connectBLE() {
 
       // loading非表示
       loading.className = "hide";
-    });
 */
+    });
 }
 
 /**
