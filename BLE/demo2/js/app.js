@@ -100,19 +100,19 @@ function connectBLE() {
       ]);
     })
     .then(characteristic => {
-      humidityCharacteristic = characteristic[0];
-      temperatureCharacteristic = characteristic[1];
+//      humidityCharacteristic = characteristic[0];
+//      temperatureCharacteristic = characteristic[1];
 
       console.log("BLE接続が完了しました。");
 
-      humidityCharacteristic.readValue()
+      characteristic[0].readValue()
       .then(value => {
         console.log("humidity を取得します");
         // 湿度を取得
         humidity = value.getUint8(0);
 
         // 温度の値を読み込む
-        return temperatureCharacteristic.readValue();
+        return characteristic[1].readValue();
       })
       .then(value => {
         console.log("temperature を取得します");
