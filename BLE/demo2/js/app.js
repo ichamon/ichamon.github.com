@@ -127,9 +127,11 @@ function loadSensorValue() {
     let humidity;
     let temperature;
 
+    console.log("BLEから読み込みを開始します");
     // 湿度の値を読み込む
     humidityCharacteristic.readValue()
       .then(value => {
+        console.log("humidity を取得します");
         // 湿度を取得
         humidity = value.getUint8(0);
 
@@ -137,10 +139,12 @@ function loadSensorValue() {
         return temperatureCharacteristic.readValue();
       })
       .then(value => {
+        console.log("temperature を取得します");
         // 温度を取得
         temperature = value.getUint8(0);
 
         // 湿度・温度の表示を更新
+        console.log("取得が完了しました を取得します");
         humidityText.innerHTML = humidity;
         temperatureText.innerHTML = temperature;
 
@@ -160,6 +164,7 @@ function loadSensorValue() {
  * 温度・湿度を表示します。
  */
 function showMainView() {
+   console.log("MainViewを表示します");
   // 接続ボタン
   connectButton.className = "hide";
 
