@@ -73,8 +73,7 @@ function connectBLE() {
 
   navigator.bluetooth.requestDevice({
     filters: [
-      { services: [SERVICE_UUID] },
-      { namePrefix: "BLESerial" }
+      { services: [SERVICE_UUID] }
     ]
   })
     .then(device => {
@@ -106,12 +105,35 @@ function connectBLE() {
 
       console.log("BLE接続が完了しました。");
 
-      // センサーの値を読み込みます。
-      loadSensorValue();
+      humidityCharacteristic.readValue()
+      .then(value => {
+        console.log("humidity を取得します");
+        // 湿度を取得
+        humidity = value.getUint8(0);
 
-    })
-    .catch(error => {
-      console.log("Error : " + error);
+        // 温度の値を読み込む
+        return temperatureCharacteristic.readValue();
+      })
+      .then(value => {
+        console.log("temperature を取得します");
+        // 温度を取得
+        temperature = value.getUint8(0);
+
+        // 湿度・温度の表示を更新
+        console.log("取得が完了しました を取得します");
+        humidityText.innerHTML = humidity;
+        temperatureText.innerHTML = temperature;
+
+        console.log("RX : " + humidity + " | TX : " + temperature + "");
+
+
+      // センサーの値を読み込みます。
+//      loadSensorValue();
+
+       })
+      .catch(error => {
+        console.log("Error : " + error);
+      });
 
       // loading非表示
       loading.className = "hide";
@@ -129,7 +151,7 @@ function loadSensorValue() {
 
     console.log("BLEから読み込みを開始します");
     // 湿度の値を読み込む
-    humidityCharacteristic.getValue()
+    humidityCharacteristic.readValue()
       .then(value => {
         console.log("humidity を取得します");
         // 湿度を取得
