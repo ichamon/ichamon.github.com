@@ -111,7 +111,7 @@ function connectBLE() {
         console.log("humidity を取得します");
         // 湿度を取得
         humidity = value.getUint8(0);
-        console.log("RX : " + humidity "");
+        console.log("RX : " + humidity +"");
 
         // 温度の値を読み込む
 //        return characteristic[1].readValue();
