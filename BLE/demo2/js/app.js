@@ -94,9 +94,10 @@ function connectBLE() {
       console.log("サービスの取得に成功しました。キャラクタリスティックを取得します。");
 
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
-      return Promise.all([
-        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
-        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
+//      return Promise.all([
+//        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
+//        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
+      return service.getCharacteristic(RX_CHARACTERISTIC_UUID);
       ]);
     })
     .then(characteristic => {
@@ -105,15 +106,17 @@ function connectBLE() {
 
       console.log("BLE接続が完了しました。");
 
-      characteristic[0].readValue()
+      characteristic.readValue()
       .then(value => {
         console.log("humidity を取得します");
         // 湿度を取得
         humidity = value.getUint8(0);
+        console.log("RX : " + humidity "");
 
         // 温度の値を読み込む
-        return characteristic[1].readValue();
-      })
+//        return characteristic[1].readValue();
+      });
+/*
       .then(value => {
         console.log("temperature を取得します");
         // 温度を取得
@@ -138,6 +141,7 @@ function connectBLE() {
       // loading非表示
       loading.className = "hide";
     });
+*/
 }
 
 /**
