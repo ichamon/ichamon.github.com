@@ -175,7 +175,7 @@ function showMainView() {
 }
 
 function sendData() {
-//    temperatureCharacteristic.writeData( demo_form.send_data.value );
+    temperatureCharacteristic.writeValue( demo_form.send_data.value );
     alert( "send data comp");
 }
 window.addEventListener("load", init);
