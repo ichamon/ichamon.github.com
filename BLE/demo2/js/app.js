@@ -111,11 +111,9 @@ function connectBLE() {
     })
       .catch(error => {
         console.log("Error : " + error);
-      });
 
       // loading非表示
       loading.className = "hide";
-
     });
 }
 
