@@ -175,9 +175,5 @@ function showMainView() {
   // 湿度・温度表示
   mainView.className = "show";
 }
-function sendData() {
-    temperatureCharacteristic.writeData( demo_form.send_data.value );
-    alert( "送信しました" );
-}
 
 window.addEventListener("load", init);
