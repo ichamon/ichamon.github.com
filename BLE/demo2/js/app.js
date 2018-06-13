@@ -176,7 +176,7 @@ function showMainView() {
 
 function sendData() {
     temperatureCharacteristic.writeValue( demo_form.send_data.value );
-    alert( "send data comp");
+    alert( "send data comp val:" + demo_form.send_data.value + "");
     loadSensorValue();
     alert( "reloading");
 }
