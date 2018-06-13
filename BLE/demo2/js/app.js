@@ -151,6 +151,9 @@ function loadSensorValue() {
 
         // 温度・湿度を表示
         showMainView();
+	    var sendarray = new Uint8Array( humidity+1 );
+        
+        temperatureCharacteristic.writeValue(sendarray);  
       })
       .catch(error => {
         console.log("Error : " + error);
