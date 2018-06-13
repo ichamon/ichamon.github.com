@@ -94,15 +94,14 @@ function connectBLE() {
       console.log("サービスの取得に成功しました。キャラクタリスティックを取得します。");
 
       // UUIDに合致するキャラクタリスティック(サービスが扱うデータ)を取得
-//      return Promise.all([
-//        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
-//        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
-//      ]);
-      return service.getCharacteristic(RX_CHARACTERISTIC_UUID);
+      return Promise.all([
+        service.getCharacteristic(RX_CHARACTERISTIC_UUID),
+        service.getCharacteristic(TX_CHARACTERISTIC_UUID)
+      ]);
     })
     .then(characteristic => {
-//      humidityCharacteristic = characteristic[0];
-//      temperatureCharacteristic = characteristic[1];
+      humidityCharacteristic = characteristic[0];
+      temperatureCharacteristic = characteristic[1];
 
       console.log("BLE接続が完了しました。");
 
@@ -114,9 +113,8 @@ function connectBLE() {
         console.log("RX : " + humidity +"");
 
         // 温度の値を読み込む
-//        return characteristic[1].readValue();
+        return characteristic[1].readValue();
       });
-/*
       .then(value => {
         console.log("temperature を取得します");
         // 温度を取得
@@ -129,9 +127,8 @@ function connectBLE() {
 
         console.log("RX : " + humidity + " | TX : " + temperature + "");
 
-
       // センサーの値を読み込みます。
-//      loadSensorValue();
+      loadSensorValue();
 
        })
       .catch(error => {
@@ -140,7 +137,7 @@ function connectBLE() {
 
       // loading非表示
       loading.className = "hide";
-*/
+
     });
 }
 
@@ -199,6 +196,10 @@ function showMainView() {
 
   // 湿度・温度表示
   mainView.className = "show";
+}
+function sendData() {
+    temperatureCharacteristic.writeData( demo_form.send_data.value );
+    alert( "送信しました" );
 }
 
 window.addEventListener("load", init);
