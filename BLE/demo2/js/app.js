@@ -125,7 +125,7 @@ function loadSensorValue() {
   setInterval(function () {
     let humidity;
     let temperature;
-
+    alert("step");
     console.log("BLEから読み込みを開始します");
     // 湿度の値を読み込む
     humidityCharacteristic.readValue()
