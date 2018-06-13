@@ -174,4 +174,8 @@ function showMainView() {
   mainView.className = "show";
 }
 
+function sendData() {
+    temperatureCharacteristic.writeData( demo_form.send_data.value );
+    alert( "send data comp");
+}
 window.addEventListener("load", init);
