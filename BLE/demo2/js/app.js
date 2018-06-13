@@ -125,7 +125,7 @@ function loadSensorValue() {
   setInterval(function () {
     let humidity;
     let temperature;
-    alert("step!!");
+//    alert("step!!");
     console.log("BLEから読み込みを開始します");
     // 湿度の値を読み込む
     humidityCharacteristic.readValue()
@@ -151,9 +151,10 @@ function loadSensorValue() {
 
         // 温度・湿度を表示
         showMainView();
-	    var sendarray = new Uint8Array( [humidity+1] );
-        
+/*
+	    var sendarray = new Uint8Array( [humidity+1] );        
         temperatureCharacteristic.writeValue(sendarray);  
+*/
       })
       .catch(error => {
         console.log("Error : " + error);
@@ -178,11 +179,12 @@ function showMainView() {
 }
 
 function sendData() {
-    alert( "send stand by");
-	var sendarray = new Uint8Array( demo_form.send_data.value );
+//    alert( "send stand by");
+	var sendarray = new Uint8Array( [demo_form.send_data.value] );        
+//	var sendarray = new Uint8Array( demo_form.send_data.value );
     temperatureCharacteristic.writeValue( sendarray );
     alert( "send data comp val:" + demo_form.send_data.value + "");
-    loadSensorValue();
-    alert( "reloading");
+//    loadSensorValue();
+//    alert( "reloading");
 }
 window.addEventListener("load", init);
