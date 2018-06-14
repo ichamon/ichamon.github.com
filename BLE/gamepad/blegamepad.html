@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>BLE Serial3 test</title>
+	<script src="js/contdol.js"></script>
+</head>
+<body>
+    <form name="gamepad_form">
+        <table>
+        <tr><td>
+        <table>
+        <tr><td></td>
+            <td><input type="button" value="▲" onClick="onClickUp()"></td>
+            <td></td></tr>
+        <tr><td><input type="button" value="≪" onClick="onClickLeft()"></td>
+             <td></td>
+             <td><input type="button" value="≫" onClick="onClickLeft()"></td></tr>
+        <tr><td></td>
+            <td><input type="button" value="▼" onClick="onClickDown()"></td>
+            <td></td></tr>
+        </table>
+        </td><td>
+        <input type="button" value="Connect" onClick="onClickConnect()">
+        </td><td>
+        <table>
+        <tr><td></td>
+            <td><input type="button" value="△" onClick="onClickSankaku()"></td>
+            <td></td></tr>
+        <tr><td><input type="button" value="□" onClick="onClickSikaku()"></td>
+             <td></td>
+             <td><input type="button" value="○" onClick="onClickMaru()"></td></tr>
+        <tr><td></td>
+            <td><input type="button" value="×" onClick="onClickBatu()"></td>
+            <td></td></tr>
+        </table>
+        </td></table>
+    </form>
+</body>
+</html>
