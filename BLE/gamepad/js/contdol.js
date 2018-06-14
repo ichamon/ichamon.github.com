@@ -60,21 +60,24 @@ function connectBLESerial3() {
  * その後、読み込みを行う
  */
 function sendData(keynumber){
-    let humidity;
+    let rxValue;
     var sendarray = new Uint8Array( [keynumber] );
     TxCharacteristic.writeValue( sendarray );
     alert( "send data val:" + keynumber + "");
 //    const value = RxCharacteristic.readValue();
 //    let batteryLevel = value.getUint8(0);
+/*
     RxCharacteristic.readValue()
       .then(value => {
         humidity = value.getUint8(0);
-        alert( "read data val:" + batteryLevel + "");
+        var obj = document.getElementById("Result");
+        obj.value = humidity;
+//        alert( "read data val:" + batteryLevel + "");
       })
       .catch(error => {
         console.log("Error : " + error);
       });
-
+*/
     /* RXの受信値 */
 //    alert( "read data val:" + batteryLevel + "");
 }
